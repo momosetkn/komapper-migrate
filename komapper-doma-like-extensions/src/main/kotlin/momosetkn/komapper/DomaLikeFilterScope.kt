@@ -419,4 +419,3 @@ fun <A : Any, B : Any> FilterScopeAll.notIn2(
 ) {
     left notInList2 block()
 }
-
