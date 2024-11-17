@@ -1,14 +1,13 @@
 package momosetkn.komapper
 
 import io.kotest.core.spec.style.FunSpec
-import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
 import io.kotest.matchers.shouldBe
 import org.komapper.core.dsl.Meta
 import org.komapper.core.dsl.QueryDsl
 import org.komapper.jdbc.JdbcDatabase
 import org.komapper.jdbc.JdbcDialects
 
-class AssociateSpec : FunSpec({
+class DomaLikeFilterScopeSpec : FunSpec({
     val db = JdbcDatabase(createHikariDataSource(), JdbcDialects.get("postgresql"))
 
     val metaProjects = Meta.projects
@@ -109,57 +108,20 @@ class AssociateSpec : FunSpec({
             val query = QueryDsl
                 .from(metaProjects)
                 .leftJoin(metaTasks) {
-                    metaProjects.taskId eq metaTasks.id
+                    eq(metaProjects.taskId, metaTasks.id)
                 }
-                .leftJoin(metaFollowers) {
-                    metaProjects.id eq metaFollowers.projectId
-                }
-                .leftJoin(metaUsers) {
-                    metaFollowers.userId eq metaUsers.id
-                }
-                .leftJoin(metaFollowerGroups) {
-                    metaProjects.id eq metaFollowerGroups.projectId
-                }
-                .leftJoin(metaUserGroups) {
-                    metaFollowerGroups.userGroupId eq metaUserGroups.id
+                .where {
+                    eq(metaProjects.id, 1)
                 }
                 .limit(100)
 
-            val items = db.runQueryWithAssociate(query) {
-                associate(metaProjects, metaTasks) { l, r ->
-                    l.task = r
-                }
-                associate(metaProjects, metaFollowers) { l, r ->
-                    l.followersList += r
-                }
-                associate(metaFollowers, metaUsers) { l, r ->
-                    l.user = r
-                }
-                associateWith(metaProjects, metaFollowerGroups) { l, r ->
-                    l.copy().apply {
-                        task = l.task
-                        followersList = l.followersList
-                        followerGroupsList = l.followerGroupsList + r
-                    }
-                }
-                associateWith(metaFollowerGroups, metaUserGroups) { l, r ->
-                    l.copy().apply {
-                        userGroup = r
-                    }
-                }
-            }
+            val items = db.runQuery(query)
             return items
         }
         test("can get associated entities") {
             val result = findList()
 
             result.size shouldBe 2
-            result shouldContainExactlyInAnyOrder projects
-            result.flatMap { it.followersList } shouldContainExactlyInAnyOrder followers
-            result.flatMap { it.followerGroupsList } shouldContainExactlyInAnyOrder followerGroups
-            result.flatMap { r -> r.followersList.map { it.user } } shouldContainExactlyInAnyOrder users
-            result.flatMap { r -> r.followerGroupsList.map { it.userGroup } } shouldContainExactlyInAnyOrder userGroups
-            result.map { it.task } shouldContainExactlyInAnyOrder tasks
         }
     }
 })
