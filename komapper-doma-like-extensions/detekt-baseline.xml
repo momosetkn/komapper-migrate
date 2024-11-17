@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>FunctionNaming:DomaLikeFilterScope.kt$@Deprecated("migrate to original method", ReplaceWith("left inList block")) fun &lt;T : Any, S : Any&gt; FilterScopeAll.`in`( left: ColumnExpression&lt;T, S&gt;, block: () -&gt; SubqueryExpression&lt;T?&gt;, )</ID>
+    <ID>FunctionNaming:DomaLikeFilterScope.kt$@Deprecated("migrate to original method", ReplaceWith("left inList subquery")) fun &lt;T : Any, S : Any&gt; FilterScopeAll.`in`( left: ColumnExpression&lt;T, S&gt;, subquery: SubqueryExpression&lt;T?&gt;, )</ID>
+    <ID>FunctionNaming:DomaLikeFilterScope.kt$@Deprecated("migrate to original method", ReplaceWith("left inList values")) fun &lt;T : Any, S : Any&gt; FilterScopeAll.`in`( left: ColumnExpression&lt;T, S&gt;, values: List&lt;T?&gt;, )</ID>
+    <ID>FunctionNaming:DomaLikeFilterScope.kt$@Deprecated("migrate to original method", ReplaceWith("left inList2 block")) fun &lt;A : Any, B : Any&gt; FilterScopeAll.`in2`( left: Pair&lt;ColumnExpression&lt;A, *&gt;, ColumnExpression&lt;B, *&gt;&gt;, block: () -&gt; SubqueryExpression&lt;Pair&lt;A?, B?&gt;&gt;, )</ID>
+    <ID>FunctionNaming:DomaLikeFilterScope.kt$@Deprecated("migrate to original method", ReplaceWith("left inList2 block")) fun &lt;A : Any, B : Any&gt; FilterScopeAll.`in2`( left: Pair&lt;ColumnExpression&lt;A, *&gt;, ColumnExpression&lt;B, *&gt;&gt;, values: List&lt;Pair&lt;A?, B?&gt;&gt;, )</ID>
+    <ID>FunctionNaming:DomaLikeFilterScope.kt$@Deprecated("migrate to original method", ReplaceWith("left inList2 subquery")) fun &lt;A : Any, B : Any&gt; FilterScopeAll.`in2`( left: Pair&lt;ColumnExpression&lt;A, *&gt;, ColumnExpression&lt;B, *&gt;&gt;, subquery: SubqueryExpression&lt;Pair&lt;A?, B?&gt;&gt;, )</ID>
+    <ID>TooManyFunctions:DomaLikeFilterScope.kt$momosetkn.komapper.DomaLikeFilterScope.kt</ID>
+  </CurrentIssues>
+</SmellBaseline>
